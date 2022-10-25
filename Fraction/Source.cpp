@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -35,7 +35,7 @@ public:
 	void set_denominator(int denominator)
 	{
 		if (denominator == 0)denominator = 1;
-		this->denominator = denominator;//ñäåñü set íåïðèìåíèì, òîëüêî òàê
+		this->denominator = denominator;//ÑÐ´ÐµÑÑŒ set Ð½ÐµÐ¿Ñ€Ð¸Ð¼ÐµÐ½Ð¸Ð¼, Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ñ‚Ð°Ðº
 	}
 	//			Constructors
 	Fraction()
@@ -61,7 +61,7 @@ public:
 	}
 	Fraction(int integer, int numerator, int denominator)
 	{
-		this->integer = integer;//ìîæíî ïèñàòü è set âåçäå
+		this->integer = integer;//Ð¼Ð¾Ð¶Ð½Ð¾ Ð¿Ð¸ÑÐ°Ñ‚ÑŒ Ð¸ set Ð²ÐµÐ·Ð´Ðµ
 		this->numerator = numerator;
 		set_denominator(denominator); 
 		cout << "Constructor:\t" << this << endl;
@@ -87,14 +87,14 @@ public:
 		cout << "CopyAssignement:" << this << endl;
 		return *this; 
 	}
-	Fraction& operator ++()//ïðåôèêñíûé èíêðåìåíò
+	Fraction& operator ++()//Ð¿Ñ€ÐµÑ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚
 	{
 		integer++; 
-		return *this; //ýòîò îáúåêò ñóùåñòâóåò è áóäåò ñóùåñòîâàòü
+		return *this; //ÑÑ‚Ð¾Ñ‚ Ð¾Ð±ÑŠÐµÐºÑ‚ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚ Ð¸ Ð±ÑƒÐ´ÐµÑ‚ ÑÑƒÑ‰ÐµÑÑ‚Ð¾Ð²Ð°Ñ‚ÑŒ
 	}
-	Fraction& operator++ (int)//ïîñòôèêñíûé èíêðåìåíò
+	Fraction& operator++ (int)//Ð¿Ð¾ÑÑ‚Ñ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚
 	{
-		Fraction old = *this;//ëîêàëüíûé îáúåêò îí èñ÷åçíåò ïîñëå îòðàáîòêè ôóíêöèè. 
+		Fraction old = *this;//Ð»Ð¾ÐºÐ°Ð»ÑŒÐ½Ñ‹Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¾Ð½ Ð¸ÑÑ‡ÐµÐ·Ð½ÐµÑ‚ Ð¿Ð¾ÑÐ»Ðµ Ð¾Ñ‚Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸. 
 		integer++;
 		return old;
 	}
@@ -116,7 +116,7 @@ public:
 	{
 		Fraction inverted = *this; 
 		inverted.to_improper(); 
-		swap(inverted.numerator, inverted.denominator); //ìåíÿåò ìåñòàìè 2 ïåðåì-õ
+		swap(inverted.numerator, inverted.denominator); //Ð¼ÐµÐ½ÑÐµÑ‚ Ð¼ÐµÑÑ‚Ð°Ð¼Ð¸ 2 Ð¿ÐµÑ€ÐµÐ¼-Ñ…
 		/*int buffer = inverted.numerator; 
 		inverted.numerator = inverted.denominator; 
 		inverted.denominator = buffer; */
@@ -190,7 +190,7 @@ void main()
 	Fraction B = 5; //single arg constructor
 	cout << B << endl;
 
-	Fraction C(2, 3); //íóæíî ïåðåãðóçèòü êîíñòðóêòîð
+	Fraction C(2, 3); //Ð½ÑƒÐ¶Ð½Ð¾ Ð¿ÐµÑ€ÐµÐ³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€
 	cout << C << endl;
 
 	Fraction D(2, 3, 4);
