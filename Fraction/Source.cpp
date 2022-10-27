@@ -98,14 +98,32 @@ public:
 		integer++;
 		return old;
 	}
-	Fraction& operator+=(const Fraction& other)
+	//Fraction& operator+=(const Fraction& other)
+	//{
+	//	//Fraction changible = *this;
+	//	Fraction tmp = other; 
+	//	this->to_improper(); 
+	//	tmp.to_improper();
+	//	set_numerator(get_numerator() * tmp.get_denominator() + get_denominator() * tmp.get_numerator());
+	//	set_denominator(get_denominator() * tmp.get_denominator()); 
+	//	this->to_proper();
+	//	return *this;
+	//}
+	Fraction& operator+=(Fraction other)
 	{
-		//Fraction changible = *this;
-		Fraction tmp = other; 
-		this->to_improper(); 
-		tmp.to_improper();
-		set_numerator(get_numerator() * tmp.get_denominator() + get_denominator() * tmp.get_numerator());
-		set_denominator(get_denominator() * tmp.get_denominator()); 
+		this->to_improper();
+		other.to_improper();
+		set_numerator(get_numerator() * other.get_denominator() + get_denominator() * other.get_numerator());
+		set_denominator(get_denominator() * other.get_denominator());
+		this->to_proper();
+		return *this;
+	}
+	Fraction& operator-=(Fraction other)
+	{
+		this->to_improper();
+		other.to_improper();
+		set_numerator(get_numerator() * other.get_denominator() - get_denominator() * other.get_numerator());
+		set_denominator(get_denominator() * other.get_denominator());
 		this->to_proper();
 		return *this;
 	}
@@ -133,7 +151,7 @@ public:
 		inverted.denominator = buffer; */
 		return inverted; 
 	}
-	
+
 };
 ostream& operator<< (ostream& os, const Fraction& obj)
 {
@@ -147,7 +165,6 @@ ostream& operator<< (ostream& os, const Fraction& obj)
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
 }
-
 Fraction operator* (Fraction left, Fraction right)
 {
 	left.to_improper(); 
@@ -226,5 +243,6 @@ void main()
 		cout << i << "\t"; 
 	}*/
 	Fraction C=B;
-	C += A; cout << C << endl; 
+	C -= A;
+	cout << C <<"\t"<< A<< endl;
 }
