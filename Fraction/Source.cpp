@@ -127,15 +127,7 @@ public:
 		this->to_proper();
 		return *this;
 	}
-	Fraction& operator*=(Fraction other)
-	{
-		this->to_improper();
-		other.to_improper();
-		set_numerator(get_numerator() * other.get_numerator());
-		set_denominator(get_denominator() * other.get_denominator());
-		this->to_proper();
-		return *this;
-	}
+	
 	//			Methods
 	Fraction& to_improper()
 	{
@@ -251,6 +243,6 @@ void main()
 		cout << i << "\t"; 
 	}*/
 	Fraction C=B;
-	C *= A;
+	C -= A;
 	cout << C <<"\t"<< A<< endl;
 }
