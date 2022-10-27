@@ -98,6 +98,17 @@ public:
 		integer++;
 		return old;
 	}
+	Fraction& operator+=(const Fraction& other)
+	{
+		//Fraction changible = *this;
+		Fraction tmp = other; 
+		this->to_improper(); 
+		tmp.to_improper();
+		set_numerator(get_numerator() * tmp.get_denominator() + get_denominator() * tmp.get_numerator());
+		set_denominator(get_denominator() * tmp.get_denominator()); 
+		this->to_proper();
+		return *this;
+	}
 	
 	//			Methods
 	Fraction& to_improper()
@@ -122,6 +133,7 @@ public:
 		inverted.denominator = buffer; */
 		return inverted; 
 	}
+	
 };
 ostream& operator<< (ostream& os, const Fraction& obj)
 {
@@ -176,6 +188,8 @@ Fraction operator + (Fraction left, Fraction right)
 		left.get_denominator() * right.get_denominator()
 	).to_proper(); 
 }
+
+
 //#define CONSTRUCTORS_CHECK
 
 void main()
@@ -199,16 +213,18 @@ void main()
 
 	Fraction A(1, 2, 3); 
 	Fraction B(3, 4, 5); 
-	Fraction C = A * B; 
-	cout << C << endl; 
+	//Fraction C; 
+	/*cout << C << endl; 
 	cout << A / B << endl; 
-	cout << A + B << endl; 
+	cout << A + B << endl; */
 	/*for (double i = 0; i < 10; i++)
 	{
 		cout << i << "\t" << endl; 
 	}*/
-	for (Fraction i(3, 4); i.get_integer() < 10; ++i)
+	/*for (Fraction i(3, 4); i.get_integer() < 10; ++i)
 	{
 		cout << i << "\t"; 
-	}
+	}*/
+	Fraction C=B;
+	C += A; cout << C << endl; 
 }
