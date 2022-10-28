@@ -148,7 +148,6 @@ public:
 		this->to_proper();
 		return *this;
 	}
-	
 	//			Methods
 	Fraction& to_improper()
 	{
@@ -232,7 +231,16 @@ Fraction operator + (Fraction left, Fraction right)
 		left.get_denominator() * right.get_denominator()
 	).to_proper(); 
 }
-
+bool operator==(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return left.get_numerator() == right.get_numerator() && left.get_denominator() == right.get_denominator();
+	/*if (left.get_x() == right.get_x() && left.get_y() == right.get_y())
+		return true;
+	else
+		return false;*/
+}
 
 //#define CONSTRUCTORS_CHECK
 
@@ -255,7 +263,7 @@ void main()
 	cout << D << endl;
 #endif // CONSTRUCTORS_CHECK
 
-	Fraction A(0, 45, 15); 
+	Fraction A(1, 3, 4); 
 	Fraction B(3, 4, 5); 
 	//Fraction C; 
 	/*cout << C << endl; 
@@ -269,8 +277,10 @@ void main()
 	{
 		cout << i << "\t"; 
 	}*/
-	Fraction C=B;
-	A.reduce(); cout << A << endl; 
+	Fraction C;
+	if (C == B) cout << "zaebumba" << endl;
+	else cout << "Ups!" << endl;
+	//A.reduce(); cout << A << endl; 
 }
 int Maximal_common_divider(int a, int b)
 {
