@@ -6,6 +6,8 @@ using std::endl;
 
 #define delimiter "\n-----------------------------------\n"
 
+int Maximal_common_divider(int a, int b);
+
 class Fraction
 {
 	int integer;
@@ -136,6 +138,16 @@ public:
 		this->to_proper();
 		return *this;
 	}
+	Fraction& operator/=(Fraction other)
+	{
+		this->to_improper();
+		other.to_improper();
+		other.inverted(); 
+		set_numerator(get_numerator() * other.get_numerator());
+		set_denominator(get_denominator() * other.get_denominator());
+		this->to_proper();
+		return *this;
+	}
 	
 	//			Methods
 	Fraction& to_improper()
@@ -152,15 +164,21 @@ public:
 	}
 	Fraction inverted()const
 	{
-		Fraction inverted = *this; 
-		inverted.to_improper(); 
-		swap(inverted.numerator, inverted.denominator); //меняет местами 2 перем-х
-		/*int buffer = inverted.numerator; 
-		inverted.numerator = inverted.denominator; 
-		inverted.denominator = buffer; */
-		return inverted; 
+		Fraction inverted = *this;
+		inverted.to_improper();
+		/*int buffer = inverted.numerator;
+		inverted.numerator = inverted.denominator;
+		inverted.denominator = buffer;*/
+		swap(inverted.numerator, inverted.denominator);
+		return inverted;
 	}
-
+	Fraction& reduce()
+	{
+		int divider = Maximal_common_divider(this->numerator, this->denominator);
+		this->numerator = numerator / divider;
+		this->denominator = denominator / divider;
+		return *this; 
+	}
 };
 ostream& operator<< (ostream& os, const Fraction& obj)
 {
@@ -237,7 +255,7 @@ void main()
 	cout << D << endl;
 #endif // CONSTRUCTORS_CHECK
 
-	Fraction A(1, 2, 3); 
+	Fraction A(0, 45, 15); 
 	Fraction B(3, 4, 5); 
 	//Fraction C; 
 	/*cout << C << endl; 
@@ -252,6 +270,20 @@ void main()
 		cout << i << "\t"; 
 	}*/
 	Fraction C=B;
-	C -= A;
-	cout << C <<"\t"<< A<< endl;
+	A.reduce(); cout << A << endl; 
 }
+int Maximal_common_divider(int a, int b)
+{
+	for (; ;)
+	{
+		if (a != 0 && b != 0)
+		{
+			if (a > b)
+			{
+				a = a % b;
+			}
+			else b = b % a;
+		}
+		else return a + b;
+	}
+}//наибольший общий делитель
