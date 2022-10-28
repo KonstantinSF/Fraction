@@ -5,6 +5,8 @@ using std::cout;
 using std::endl;
 
 #define delimiter "\n-----------------------------------\n"
+class Fraction; //объявление класса
+Fraction operator* (Fraction left, Fraction right); 
 
 int Maximal_common_divider(int a, int b);
 
@@ -129,7 +131,7 @@ public:
 		this->to_proper();
 		return *this;
 	}
-	Fraction& operator*=(Fraction other)
+	/*Fraction& operator*=(Fraction other)
 	{
 		this->to_improper();
 		other.to_improper();
@@ -137,6 +139,11 @@ public:
 		set_denominator(get_denominator() * other.get_denominator());
 		this->to_proper();
 		return *this;
+	}*/
+	Fraction& operator *= (const Fraction& other)
+	{
+		//a*=b; a=a*b; 
+		return *this = *this * other; 
 	}
 	Fraction& operator/=(Fraction other)
 	{
@@ -179,6 +186,7 @@ public:
 		return *this; 
 	}
 };
+
 ostream& operator<< (ostream& os, const Fraction& obj)
 {
 	if (obj.get_integer())os << obj.get_integer();
@@ -231,32 +239,67 @@ Fraction operator + (Fraction left, Fraction right)
 		left.get_denominator() * right.get_denominator()
 	).to_proper(); 
 }
-bool operator==(Fraction left, Fraction right)
+
+
+//				COMPARISON OPERATORS
+
+bool operator == (Fraction left, Fraction right)//тк есть алгоритм вычисления, то константные значения брать нельзя
 {
 	left.to_improper();
-	right.to_improper();
-	return left.get_numerator() == right.get_numerator() && left.get_denominator() == right.get_denominator();
+	right.to_improper(); 
+	return
+		left.get_numerator() * right.get_denominator() ==
+		right.get_numerator() * left.get_denominator(); 
+}
+bool operator != (const Fraction & left, const Fraction & right)
+{
+	return !(left == right); 
 }
 bool operator > (Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
-	left.set_numerator(left.get_numerator() * right.get_denominator()); 
-	//left.set_denominator(left.get_denominator() * right.get_denominator());
-	right.set_numerator(right.get_numerator() * left.get_denominator());
-	//right.set_denominator(right.get_denominator() * left.get_denominator()); 
-	return left.get_numerator() > right.get_numerator(); 
+	return
+		left.get_numerator() * right.get_denominator() >
+		right.get_numerator() * left.get_denominator(); 
 }
 bool operator < (Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
-	left.set_numerator(left.get_numerator() * right.get_denominator());
-	right.set_numerator(right.get_numerator() * left.get_denominator());
-	return left.get_numerator() < right.get_numerator();
+	return
+		left.get_numerator() * right.get_denominator() <
+		right.get_numerator() * left.get_denominator();
 }
+bool operator >= (const Fraction & left, const Fraction & right)
+{
+	return left > right || left == right; 
+}
+bool operator <= (const Fraction& left, const Fraction& right)
+{
+	return !(left > right); 
+}
+//bool operator > (Fraction left, Fraction right)
+//{
+//	left.to_improper();
+//	right.to_improper();
+//	left.set_numerator(left.get_numerator() * right.get_denominator()); 
+//	//left.set_denominator(left.get_denominator() * right.get_denominator());
+//	right.set_numerator(right.get_numerator() * left.get_denominator());
+//	//right.set_denominator(right.get_denominator() * left.get_denominator()); 
+//	return left.get_numerator() > right.get_numerator(); 
+//}
+//bool operator < (Fraction left, Fraction right)
+//{
+//	left.to_improper();
+//	right.to_improper();
+//	left.set_numerator(left.get_numerator() * right.get_denominator());
+//	right.set_numerator(right.get_numerator() * left.get_denominator());
+//	return left.get_numerator() < right.get_numerator();
+//}
 
 //#define CONSTRUCTORS_CHECK
+//#define ARITHMETICAL_OPERATORS_CHECK
 
 void main()
 {
@@ -277,27 +320,33 @@ void main()
 	cout << D << endl;
 #endif // CONSTRUCTORS_CHECK
 
-	Fraction A(1, 3, 4); 
-	Fraction B(3, 4, 5); 
+#ifdef ARITHMETICAL_OPERATORS_CHECK
+	Fraction A(1, 3, 4);
+	Fraction B(3, 4, 5);
 	//Fraction C; 
-	/*cout << C << endl; 
-	cout << A / B << endl; 
+	/*cout << C << endl;
+	cout << A / B << endl;
 	cout << A + B << endl; */
 	/*for (double i = 0; i < 10; i++)
 	{
-		cout << i << "\t" << endl; 
+		cout << i << "\t" << endl;
 	}*/
 	/*for (Fraction i(3, 4); i.get_integer() < 10; ++i)
 	{
-		cout << i << "\t"; 
+		cout << i << "\t";
 	}*/
-	Fraction C(1,4,3);
-	cout << (A < C) << endl; 
+	Fraction C(1, 4, 3);
+	cout << (A < C) << endl;
 	/*if (C == B) cout << "zaebumba" << endl;
 	else cout << "Ups!" << endl;
 	cout << C << "\t" << B << endl; */
-	//A.reduce(); cout << A << endl; 
+	//A.reduce(); cout << A << endl;   
+#endif // ARITHMETICAL_OPERATORS_CHECK
+//cout << (Fraction(1, 2) < Fraction(5, 9)) << endl; //это не именованые объекты, он будет являться константой
+
+
 }
+
 int Maximal_common_divider(int a, int b)
 {
 	for (; ;)
