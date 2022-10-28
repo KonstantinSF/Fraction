@@ -247,6 +247,14 @@ bool operator > (Fraction left, Fraction right)
 	//right.set_denominator(right.get_denominator() * left.get_denominator()); 
 	return left.get_numerator() > right.get_numerator(); 
 }
+bool operator < (Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	left.set_numerator(left.get_numerator() * right.get_denominator());
+	right.set_numerator(right.get_numerator() * left.get_denominator());
+	return left.get_numerator() < right.get_numerator();
+}
 
 //#define CONSTRUCTORS_CHECK
 
@@ -283,8 +291,8 @@ void main()
 	{
 		cout << i << "\t"; 
 	}*/
-	Fraction C(1,2,3);
-	cout << (A > C) << endl; 
+	Fraction C(1,4,3);
+	cout << (A < C) << endl; 
 	/*if (C == B) cout << "zaebumba" << endl;
 	else cout << "Ups!" << endl;
 	cout << C << "\t" << B << endl; */
