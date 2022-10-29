@@ -9,6 +9,7 @@ class Fraction; //объявление класса
 Fraction operator* (Fraction left, Fraction right); 
 
 int Maximal_common_divider(int a, int b);
+int Num_in_dec_fraction(double dec_fraction); 
 
 class Fraction
 {
@@ -54,7 +55,19 @@ public:
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator=1; 
-		cout << "1Arg.Constructor:" << this << endl;
+		cout << "1Arg.int.Constructor:" << this << endl;
+	}
+	Fraction(double dec_fraction)
+	{
+		double cpy_dec_fraction = dec_fraction;
+		this->integer = dec_fraction; 
+		int num_in_dec_fraction =pow (10,Num_in_dec_fraction(cpy_dec_fraction)); 
+		this->numerator = (cpy_dec_fraction-(int)cpy_dec_fraction) * num_in_dec_fraction;
+		this->denominator = num_in_dec_fraction;
+		int maximal_common_divider = Maximal_common_divider(numerator, denominator); 
+		this->numerator/=maximal_common_divider; 
+		this->denominator/=maximal_common_divider; 
+		cout << "1Arg.double.Constructor:" << this << endl;
 	}
 	Fraction(int numerator, int denominator)
 	{
@@ -173,6 +186,8 @@ public:
 		double num = numerator / denominator;*/  
 		return (double)other.get_numerator() / other.get_denominator();
 	}
+
+
 	//			Methods
 	Fraction& to_improper()
 	{
@@ -410,14 +425,15 @@ void main()
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 	Fraction A(5, 3, 4);
 	cout << delimiter << endl; 
-	int a = A;
+	/*int a = A;
 	cout << a << endl;
 
 	double b = A;
-	cout << b << endl;
+	cout << b << endl;*/
 
-	/*Fraction B = 2.75;
-	cout << B << endl;*/
+	Fraction B =2.75;
+	cout << B << endl;
+
 #endif // HOME_WORK_1
 }
 
@@ -436,3 +452,15 @@ int Maximal_common_divider(int a, int b)
 		else return a + b;
 	}
 }//наибольший общий делитель
+int Num_in_dec_fraction(double dec_fraction)
+{
+	int res = dec_fraction;
+	int num_in_dec_fraction = 0;
+	while (dec_fraction > res)
+	{
+		dec_fraction *= 10;
+		res = dec_fraction;
+		num_in_dec_fraction++;
+	}
+	return num_in_dec_fraction;
+}
