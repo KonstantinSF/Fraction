@@ -59,10 +59,9 @@ public:
 	}
 	Fraction(double dec_fraction)
 	{
-		double cpy_dec_fraction = dec_fraction;
 		this->integer = dec_fraction; 
-		int num_in_dec_fraction =pow (10,Num_in_dec_fraction(cpy_dec_fraction)); 
-		this->numerator = (cpy_dec_fraction-(int)cpy_dec_fraction) * num_in_dec_fraction;
+		int num_in_dec_fraction =pow (10,Num_in_dec_fraction(dec_fraction)); 
+		this->numerator = (dec_fraction-(int)dec_fraction) * num_in_dec_fraction;
 		this->denominator = num_in_dec_fraction;
 		int maximal_common_divider = Maximal_common_divider(numerator, denominator); 
 		this->numerator/=maximal_common_divider; 
@@ -272,7 +271,6 @@ Fraction operator + (Fraction left, Fraction right)
 		left.get_denominator() * right.get_denominator()
 	).to_proper(); 
 }
-
 
 //				COMPARISON OPERATORS
 
