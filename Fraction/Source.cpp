@@ -155,6 +155,13 @@ public:
 		this->to_proper();
 		return *this;
 	}
+	//		Operators changigh type
+			
+	{
+		Fraction other = *this; 
+		int(other.integer);  
+		return other.integer;
+	}
 	//			Methods
 	Fraction& to_improper()
 	{
@@ -304,7 +311,8 @@ bool operator <= (const Fraction& left, const Fraction& right)
 //#define COMPARISON_OPERATORS_CHECK
 //#define TYPE_CONVERSIONS_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
-//#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -389,15 +397,15 @@ void main()
 #endif // CONVERSION_FROM_OTHER_TO_CLASS
 
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
-	Fraction A(2, 3, 4);
+	Fraction A(5, 3, 4);
 	int a = A;
 	cout << a << endl;
 
-	double b = A;
+	/*double b = A;
 	cout << b << endl;
 
 	Fraction B = 2.75;
-	cout << B << endl;
+	cout << B << endl;*/
 #endif // HOME_WORK_1
 }
 
