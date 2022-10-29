@@ -156,7 +156,7 @@ public:
 		return *this;
 	}
 	//		Operators changigh type
-			
+	operator int()const
 	{
 		Fraction other = *this; 
 		int(other.integer);  
