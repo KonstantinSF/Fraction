@@ -300,7 +300,11 @@ bool operator <= (const Fraction& left, const Fraction& right)
 
 //#define CONSTRUCTORS_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
-
+//#define COMPOUND_ASSIGNMENTS_CHECK
+//#define COMPARISON_OPERATORS_CHECK
+//#define TYPE_CONVERSIONS_BASICS
+//#define CONVERSION_FROM_OTHER_TO_CLASS
+//#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -344,7 +348,57 @@ void main()
 #endif // ARITHMETICAL_OPERATORS_CHECK
 //cout << (Fraction(1, 2) < Fraction(5, 9)) << endl; //это не именованые объекты, он будет являться константой
 
+#ifdef TYPE_CONVERSIONS_BASICS
+			//(type)value;	//C-like notation (Ñ-ïîäîáíàÿ ôîðìà çàïèñè)
+//type(value);	//Functional notation (Ôóíêöèîíàëüíàÿ ôîðìà çàïèñè)
 
+//Warning: Conversion from 'type' to 'type', possible loss of data.
+
+//cout << (double)8 / 5 << endl;
+
+	int a = 2;		//No conversions
+	double b = 3;	//Conversion from less to more.
+	int c = b;		//Conversion from more to less with no data loss.
+	int d = 2.999;	//Conversion from more to less with data loss.
+	cout << d << endl;
+#endif // TYPE_CONVERSIONS_BASICS
+
+#ifdef CONVERSION_FROM_OTHER_TO_CLASS
+	/*
+1. From other to Class:
+	Single-Argument constructor;
+	Assignment operator;
+2. From Class to other type;
+	operator type()const
+	{
+		.....;
+		conversion-algorithm;
+		.....;
+	}
+	explicit
+*/
+
+	Fraction A = Fraction(5);	//Conversion from 'int' to 'Fraction'
+	cout << A << endl;
+	cout << delimiter << endl;
+	Fraction B;		//Default constructor
+	cout << delimiter << endl;
+	B = (Fraction)8;
+	cout << delimiter << endl;
+	cout << B << endl;
+#endif // CONVERSION_FROM_OTHER_TO_CLASS
+
+#ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+	Fraction A(2, 3, 4);
+	int a = A;
+	cout << a << endl;
+
+	double b = A;
+	cout << b << endl;
+
+	Fraction B = 2.75;
+	cout << B << endl;
+#endif // HOME_WORK_1
 }
 
 int Maximal_common_divider(int a, int b)
