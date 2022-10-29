@@ -3,7 +3,7 @@ using namespace std;
 using std::cin;
 using std::cout;
 using std::endl;
-
+#define tab "\t"
 #define delimiter "\n-----------------------------------\n"
 class Fraction; //объявление класса
 Fraction operator* (Fraction left, Fraction right); 
@@ -159,8 +159,19 @@ public:
 	operator int()const
 	{
 		Fraction other = *this; 
-		int(other.integer);  
-		return other.integer;
+		cout << "changing to int done" << endl; 
+		return int(other.integer);
+	}
+	operator double()const
+	{
+		Fraction other = *this; 
+		other.to_improper();
+		//cout << other.get_numerator() << tab << other.get_denominator() << endl;
+		//double num = static_cast<double>(other.get_numerator()) / other.get_denominator();
+		/*double numerator = other.get_numerator();
+		double denominator = other.get_denominator();
+		double num = numerator / denominator;*/  
+		return (double)other.get_numerator() / other.get_denominator();
 	}
 	//			Methods
 	Fraction& to_improper()
@@ -398,13 +409,14 @@ void main()
 
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 	Fraction A(5, 3, 4);
+	cout << delimiter << endl; 
 	int a = A;
 	cout << a << endl;
 
-	/*double b = A;
+	double b = A;
 	cout << b << endl;
 
-	Fraction B = 2.75;
+	/*Fraction B = 2.75;
 	cout << B << endl;*/
 #endif // HOME_WORK_1
 }
