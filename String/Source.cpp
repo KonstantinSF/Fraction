@@ -81,12 +81,13 @@ String& operator + (const String left, String right)
 		result[i] = left.get_str()[i];
 	}
 	result[length_left + 1] = {' '};
-	for (int i = length_left + 2; i < length_right; i++)
+	for (int i = length_left + 2; i < size; i++)
 	{
 		result[i] = right.get_str()[i]; 
 	}
-	delete[] result; 
-	return result; 
+	String Result = result; 
+	//delete[] result; 
+	return Result; 
 }
 
 //#define CONSTRUCTORS_CHECK
@@ -115,7 +116,9 @@ void main()
 
 #ifdef OPERATOR_PLUS_CHECK
 	String str1 = "Hello!";
+	cout << str1 << endl; 
 	String str2 = "World!";
+	cout << str2 << endl; 
 	String str3 = str1 + str2;
 	cout << str3 << endl;
 #endif // OPERATOR_PLUS_CHECK
