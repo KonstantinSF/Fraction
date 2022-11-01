@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+#include<ctype.h>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -174,13 +175,12 @@ public:
 		this->to_proper();
 		return *this;
 	}
-	//			Tympe-cast operator
+	//			Type-cast operator
 
 	explicit operator int()const
 	{
 		return integer + numerator / denominator;
 	}
-
 	explicit operator double()const
 	{
 
@@ -249,6 +249,40 @@ ostream& operator<< (ostream& os, const Fraction& obj)
 	}
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
+}
+istream& operator>> (istream& is, Fraction& frac)
+{
+	int symbol = cin.get() - '0';//считываем символ и превращ его в чило
+	char ch = symbol + '0';
+	int integer_in = 0;//целое
+	int numerator_in = 0; //числитель
+	int denominator_in = 1; //порядок знаменателя
+
+	while (isdigit(ch))
+	{
+		integer_in *= 10; 
+		integer_in += symbol;
+		symbol = cin.get() - '0';
+		ch = symbol + '0';
+	}
+	if (ch == '.')
+	{
+		symbol = cin.get() - '0';
+		ch = symbol + '0';
+		while (isdigit(ch))
+		{
+			numerator_in *= 10;
+			numerator_in += symbol;
+			symbol = cin.get() - '0';
+			ch = symbol + '0';
+			denominator_in *= 10; 
+		}
+	}
+	frac.set_integer(integer_in); 
+	frac.set_numerator(numerator_in); 
+	frac.set_denominator(denominator_in); 
+	frac.reduce(); 
+	return is;
 }
 Fraction operator* (Fraction left, Fraction right)
 {
@@ -354,7 +388,7 @@ bool operator <= (const Fraction& left, const Fraction& right)
 //#define COMPARISON_OPERATORS_CHECK
 //#define TYPE_CONVERSIONS_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
-#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+//#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 
 void main()
 {
@@ -451,6 +485,9 @@ void main()
 	cout << B << endl;
 
 #endif // HOME_WORK_1
+	Fraction A(4532,1,2);
+	cout << "Введите простую дробь: "; cin >> A;
+	cout << A << endl;
 };
 
 int Maximal_common_divider(int a, int b)
