@@ -252,36 +252,37 @@ ostream& operator<< (ostream& os, const Fraction& obj)
 }
 istream& operator>> (istream& is, Fraction& frac)
 {
-	int symbol = cin.get() - '0';//считываем символ и превращ его в чило
-	char ch = symbol + '0';
+	char ch = cin.get();//считываем символ
+	int digit = ch - '0';//переводим в цифру
+
 	int integer_in = 0;//целое
 	int numerator_in = 0; //числитель
 	int denominator_in = 1; //порядок знаменателя
 
-	while (isdigit(ch))
+	while (isdigit(ch))//а цифра ли?
 	{
-		integer_in *= 10; 
-		integer_in += symbol;
-		symbol = cin.get() - '0';
-		ch = symbol + '0';
+		integer_in *= 10; //увелич порядок
+		integer_in += digit;//добавляем цифру
+		ch = cin.get();//считываем след знак
+		digit = ch - '0';//преобразуем в цифру
 	}
-	if (ch == '.')
+	if (ch == '.')//если встретили запятую
 	{
-		symbol = cin.get() - '0';
-		ch = symbol + '0';
+		ch = cin.get();
+		digit = ch - '0';
 		while (isdigit(ch))
 		{
-			numerator_in *= 10;
-			numerator_in += symbol;
-			symbol = cin.get() - '0';
-			ch = symbol + '0';
-			denominator_in *= 10; 
+			numerator_in *= 10;//набираем числитель
+			numerator_in += digit;
+			ch = cin.get();
+			digit = ch - '0';
+			denominator_in *= 10; //набираем порядок знаменателя
 		}
 	}
 	frac.set_integer(integer_in); 
 	frac.set_numerator(numerator_in); 
 	frac.set_denominator(denominator_in); 
-	frac.reduce(); 
+	frac.reduce(); //сокращаем дробь
 	return is;
 }
 Fraction operator* (Fraction left, Fraction right)
