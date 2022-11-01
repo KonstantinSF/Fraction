@@ -2,6 +2,8 @@
 using namespace std;
 #define tab "\t"
 
+int StringLength(const char str[]); 
+
 class String
 {
 	size_t size; //размер строки в Байтах
@@ -67,6 +69,26 @@ ostream& operator << (ostream& os, const String&obj)
 {
 	return os << obj.get_str();
 }
+String& operator + (const String left, String right)
+{
+	int length_left = strlen(left.get_str()); 
+	int length_right = strlen(right.get_str()); 
+	int size = length_left+length_right+3;
+	char* result = new char[size] {}; 
+
+	for (int i = 0; i < length_left; i++)
+	{
+		result[i] = left.get_str()[i];
+	}
+	result[length_left + 1] = {' '};
+	for (int i = length_left + 2; i < length_right; i++)
+	{
+		result[i] = right.get_str()[i]; 
+	}
+	delete[] result; 
+	return result; 
+}
+
 //#define CONSTRUCTORS_CHECK
 #define OPERATOR_PLUS_CHECK
 void main()
@@ -99,4 +121,11 @@ void main()
 #endif // OPERATOR_PLUS_CHECK
 
 
+}
+int StringLength(const char str[])
+{
+	//Принимает строку, и возвращает размер строки в символах
+	int i = 0;
+	for (; str[i]; i++);
+	return i;
 }
