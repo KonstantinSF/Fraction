@@ -73,15 +73,15 @@ String& operator + (const String left, String right)
 {
 	int length_left = strlen(left.get_str()); 
 	int length_right = strlen(right.get_str()); 
-	int size = length_left+length_right+3;
+	int size = length_left+length_right+1;
 	char* result = new char[size] {}; 
 
 	for (int i = 0; i < length_left; i++)
 	{
 		result[i] = left.get_str()[i];
 	}
-	result[length_left + 1] = {' '};
-	for (int i = length_left + 2; i < size; i++)
+	result[length_left] = {' '};
+	for (int i = length_left+1; i < size; i++)
 	{
 		result[i] = right.get_str()[i]; 
 	}

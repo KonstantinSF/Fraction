@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
 #include<ctype.h>
 using namespace std;
 using std::cin;
@@ -250,40 +251,71 @@ ostream& operator<< (ostream& os, const Fraction& obj)
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
 }
-istream& operator>> (istream& is, Fraction& frac)
+//istream& operator>> (istream& is, Fraction& frac)
+//{
+//	char ch = cin.get();//считываем символ
+//	int digit = ch - '0';//переводим в цифру
+//
+//	int integer_in = 0;//целое
+//	int numerator_in = 0; //числитель
+//	int denominator_in = 1; //порядок знаменателя
+//
+//	while (isdigit(ch))//а цифра ли?
+//	{
+//		integer_in *= 10; //увелич порядок
+//		integer_in += digit;//добавляем цифру
+//		ch = cin.get();//считываем след знак
+//		digit = ch - '0';//преобразуем в цифру
+//	}
+//	if (ch == '.')//если встретили запятую
+//	{
+//		ch = cin.get();
+//		digit = ch - '0';
+//		while (isdigit(ch))
+//		{
+//			numerator_in *= 10;//набираем числитель
+//			numerator_in += digit;
+//			ch = cin.get();
+//			digit = ch - '0';
+//			denominator_in *= 10; //набираем порядок знаменателя
+//		}
+//	}
+//	frac.set_integer(integer_in); 
+//	frac.set_numerator(numerator_in); 
+//	frac.set_denominator(denominator_in); 
+//	frac.reduce(); //сокращаем дробь
+//	return is;
+//}
+istream& operator >> (istream& is, Fraction& obj)
 {
-	char ch = cin.get();//считываем символ
-	int digit = ch - '0';//переводим в цифру
-
-	int integer_in = 0;//целое
-	int numerator_in = 0; //числитель
-	int denominator_in = 1; //порядок знаменателя
-
-	while (isdigit(ch))//а цифра ли?
+	/*int integer, numerator, denominator; 
+	is >> integer >> numerator >> denominator; 
+	obj = Fraction(integer, numerator, denominator); 
+	return is; */
+	const int SIZE = 256; 
+	char buffer[SIZE]{}; 
+	//is >> buffer; 
+	is.getline(buffer, SIZE); 
+	char delimiters[] = "()/ "; 
+	int number[3] = {}; //храниться числа извлеченные из строки
+	int n = 0; 
+	for (char* pch = strtok(buffer, delimiters); pch; pch = strtok(NULL, delimiters))
 	{
-		integer_in *= 10; //увелич порядок
-		integer_in += digit;//добавляем цифру
-		ch = cin.get();//считываем след знак
-		digit = ch - '0';//преобразуем в цифру
+		number[n++] = atoi(pch); 
+		if (n >= 3) break; 
 	}
-	if (ch == '.')//если встретили запятую
+	//for (int i = 0; i < n; i++) cout << number[i] << endl; 
+	obj = Fraction(); 
+	switch (n)
 	{
-		ch = cin.get();
-		digit = ch - '0';
-		while (isdigit(ch))
-		{
-			numerator_in *= 10;//набираем числитель
-			numerator_in += digit;
-			ch = cin.get();
-			digit = ch - '0';
-			denominator_in *= 10; //набираем порядок знаменателя
-		}
+	case 1: obj.set_integer(number[0]); break; 
+	case 2: obj.set_numerator(number[0]); 
+		obj.set_denominator(number[1]); break; 
+	case 3: obj.set_integer(number[0]);
+		obj.set_numerator(number[1]);
+		obj.set_denominator(number[2]); 
 	}
-	frac.set_integer(integer_in); 
-	frac.set_numerator(numerator_in); 
-	frac.set_denominator(denominator_in); 
-	frac.reduce(); //сокращаем дробь
-	return is;
+	return is; 
 }
 Fraction operator* (Fraction left, Fraction right)
 {
