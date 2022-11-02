@@ -47,7 +47,15 @@ public:
 		}
 		cout << "CopyConstrucror: \t" << this << endl; 
 	}
-
+	String(String&& other)
+	{
+		//Shallow copy:
+		this->size = other.size; 
+		this->str = other.str; 
+		other.str = nullptr; 
+		other.size = NULL; 
+		cout << "MoveConstr:" << this << endl; 
+	}
 	~String()
 	{
 		delete[] this->str; 
