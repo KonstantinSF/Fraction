@@ -1,6 +1,9 @@
 #include<iostream>
 using namespace std;
 #define tab "\t"
+using std::cout; 
+using std::cin; 
+using std::endl;
 
 int StringLength(const char str[]); 
 
@@ -23,10 +26,10 @@ public:
 		return str;
 	}
 				/*constructors*/
-	explicit String(size_t size =80)
+	explicit String(size_t size =80)//Default constructor
 	{
 	this->size = size; 
-	this->str = new char[size] {}; 
+	this->str = new char[size] {}; //занулена и содержит 80байт памяти
 	cout << "DefConstructor:\t" << this << endl; 
 	}
 	String(const char str[])
@@ -71,6 +74,16 @@ public:
 		for (int i = 0; i < size; i++)
 			this->str[i] = other.str[i]; 
 		cout << "CopyAssigmtn:\t" << this << endl; 
+		return *this; 
+	}
+	String& operator = (String&& other)
+	{
+		if (this == &other)return *this;
+		delete[] this->str;
+		this->size = other.size; 
+		this->str = other.str; 
+		other.str = nullptr; 
+		cout << "MoveAssignment: " << this << endl; 
 		return *this; 
 	}
 	char operator [] (int index)const
@@ -150,13 +163,13 @@ void main()
 
 #ifdef OPERATOR_PLUS_CHECK
 	String str1 = "Hello!";
-	cout << str1 << endl; 
+	//cout << str1 << endl; 
 	String str2 = "World!";
-	cout << str2 << endl; 
-	String str3 = str1 +" "+ str2;
+	//cout << str2 << endl; 
+	String str3;
+	str3 = str1 + str2;
 	cout << str3 << endl;
 #endif // OPERATOR_PLUS_CHECK
-
 
 }
 int StringLength(const char str[])
