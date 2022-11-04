@@ -5,6 +5,8 @@ using std::cout;
 using std::cin; 
 using std::endl;
 
+class String; 
+String operator + (const String& left, const String& right); 
 int StringLength(const char str[]); 
 
 class String
@@ -65,11 +67,16 @@ public:
 		delete[] this->str;
 		this->size = other.size;
 		this->str = other.str;
+		other.size = 0; 
 		other.str = nullptr;
-		cout << "MoveAssignment: " << this << endl;
+		cout << "MoveAssignment:\t " << this << endl;
 		return *this;
 	}
-	~String()
+	String& operator += (const String& other)
+	{
+		return *this=*this + other; 
+	}
+	~String()//последний метод в секции конструкторов
 	{
 		delete[] this->str; 
 		cout << "Destructor:\t" << this << endl; 
