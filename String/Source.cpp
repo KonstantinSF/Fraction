@@ -59,6 +59,16 @@ public:
 		other.size = NULL; 
 		cout << "MoveConstr:" << this << endl; 
 	}
+	String& operator = (String&& other)
+	{
+		if (this == &other)return *this;//на всяк случай, не м.б. 2 разных объекта с одним адресом
+		delete[] this->str;
+		this->size = other.size;
+		this->str = other.str;
+		other.str = nullptr;
+		cout << "MoveAssignment: " << this << endl;
+		return *this;
+	}
 	~String()
 	{
 		delete[] this->str; 
@@ -76,16 +86,7 @@ public:
 		cout << "CopyAssigmtn:\t" << this << endl; 
 		return *this; 
 	}
-	String& operator = (String&& other)
-	{
-		if (this == &other)return *this;
-		delete[] this->str;
-		this->size = other.size; 
-		this->str = other.str; 
-		other.str = nullptr; 
-		cout << "MoveAssignment: " << this << endl; 
-		return *this; 
-	}
+	
 	char operator [] (int index)const
 	{
 		return str[index]; 
