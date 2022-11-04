@@ -28,35 +28,35 @@ public:
 		return str;
 	}
 				/*constructors*/
-	explicit String(size_t size =80)//Default constructor
+	explicit String(size_t size = 80):size(size), str (new char[size]{})//Default constructor
 	{
-	this->size = size; 
-	this->str = new char[size] {}; //занулена и содержит 80байт памяти
+	//this->size = size; 
+	//this->str = new char[size] {}; //занулена и содержит 80байт памяти
 	cout << "DefConstructor:\t" << this << endl; 
 	}
-	String(const char str[])
+	String(const char str[]):size(strlen(str)+1), str (new char[size]{})
 	{
-		this->size = strlen(str) + 1; //длина строки с терминатором
-		this->str = new char[size] {}; 
+		//this->size = strlen(str) + 1; //длина строки с терминатором
+		//this->str = new char[size] {}; 
 		for (int i = 0; i < size; i++)
 			this->str[i] = str[i]; 
 		cout << "constructor:\t" << endl; 
 	}
-	String(const String& other)
+	String(const String& other):size(other.size), str(new char[size]{})
 	{
-		this->size = other.size; 
-		this->str = new char [size] {}; 
+		/*this->size = other.size; 
+		this->str = new char [size] {}; */
 		for (int i = 0; i < size; i++)
 		{
 			this->str[i] = other.str[i]; 
 		}
 		cout << "CopyConstrucror: \t" << this << endl; 
 	}
-	String(String&& other)
+	String(String&& other) :size(other.size), str(other.str)
 	{
 		//Shallow copy:
-		this->size = other.size; 
-		this->str = other.str; 
+		/*this->size = other.size; 
+		this->str = other.str; */
 		other.str = nullptr; 
 		other.size = NULL; 
 		cout << "MoveConstr:" << this << endl; 
@@ -172,7 +172,7 @@ void main()
 #ifdef OPERATOR_PLUS_CHECK
 	String str1 = "Hello!";
 	//cout << str1 << endl; 
-	String str2 = "World!";
+	String str2 = "World";
 	//cout << str2 << endl; 
 	String str3;
 	str3 = str1 + str2;
@@ -180,6 +180,7 @@ void main()
 #endif // OPERATOR_PLUS_CHECK
 
 }
+
 int StringLength(const char str[])
 {
 	//Принимает строку, и возвращает размер строки в символах
