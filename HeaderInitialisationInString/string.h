@@ -3,15 +3,15 @@ using namespace std;
 #define tab "\t"
 using std::cout;
 using std::cin;
-using std::cout;
+using std::endl;
 using std::size_t;
 /////////////////////////////////////////////////////////
 /////////////////CLASS DECLARATION START/////////////////
+int StringLength(const char str[]);
 
 class String;
 String operator + (const String& left, const String& right);
 ostream& operator << (ostream& os, const String& obj);
-int StringLength(const char str[]);
 
 class String
 {

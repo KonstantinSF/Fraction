@@ -7,7 +7,6 @@ size_t String::get_size()const
 {
 	return size;
 }
-
 const char* String::get_str()const
 {
 	return str;
@@ -17,7 +16,7 @@ char* String::get_str()
 	return str;
 }
 
-/*constructors*/
+		/*constructors*/
 
 String::String(size_t size) :size(size), str(new char[size] {})//Default constructor
 {
@@ -57,8 +56,10 @@ String::~String()//последний метод в секции конструкторов
 	delete[] this->str;
 	cout << "Destructor:\t" << this << endl;
 }
+
 //			Operators
-String& String::operator = (const String& other)
+
+String& String::operator = (const String& other)//указываем какому классу принадлежит оператор
 {
 	if (this == &other)return *this;
 	delete[] this->str;
@@ -92,6 +93,7 @@ char& String::operator [] (int index)//если возвр по ссылке, то можем менять
 {
 	return str[index];
 }
+
 //			Methods
 
 void String::print()const
