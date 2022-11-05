@@ -3,7 +3,7 @@ using namespace std;
 #define tab "\t"
 using std::cout; 
 using std::cin; 
-using std::endl;
+using std::size_t; 
 
 class String; 
 String operator + (const String& left, const String& right); 
@@ -14,102 +14,127 @@ class String
 	size_t size; //размер строки в Байтах size_t это unsigned int
 	char* str; //указатель на строку в динамич памяти
 public:
-	size_t get_size()const
-	{
-		return size; 
-	}
+	size_t get_size()const;
 
-	const char* get_str()const
-	{
-		return str; 
-	}
-	char* get_str()
-	{
-		return str;
-	}
+	const char* get_str()const;
+	char* get_str();
+
 				/*constructors*/
-	explicit String(size_t size = 80):size(size), str (new char[size]{})//Default constructor
-	{
-	//this->size = size; 
-	//this->str = new char[size] {}; //занулена и содержит 80байт памяти
-	cout << "DefConstructor:\t" << this << endl; 
-	}
-	String(const char str[]):size(strlen(str)+1), str (new char[size]{})
-	{
-		//this->size = strlen(str) + 1; //длина строки с терминатором
-		//this->str = new char[size] {}; 
-		for (int i = 0; i < size; i++)
-			this->str[i] = str[i]; 
-		cout << "constructor:\t" << endl; 
-	}
-	String(const String& other):size(other.size), str(new char[size]{})
-	{
-		/*this->size = other.size; 
-		this->str = new char [size] {}; */
-		for (int i = 0; i < size; i++)
-		{
-			this->str[i] = other.str[i]; 
-		}
-		cout << "CopyConstrucror: \t" << this << endl; 
-	}
-	String(String&& other) :size(other.size), str(other.str)
-	{
-		//Shallow copy:
-		/*this->size = other.size; 
-		this->str = other.str; */
-		other.str = nullptr; 
-		other.size = NULL; 
-		cout << "MoveConstr:" << this << endl; 
-	}
-	String& operator = (String&& other)
-	{
-		if (this == &other)return *this;//на всяк случай, не м.б. 2 разных объекта с одним адресом
-		delete[] this->str;
-		this->size = other.size;
-		this->str = other.str;
-		other.size = 0; 
-		other.str = nullptr;
-		cout << "MoveAssignment:\t " << this << endl;
-		return *this;
-	}
-	String& operator += (const String& other)
-	{
-		return *this=*this + other; 
-	}
-	~String()//последний метод в секции конструкторов
-	{
-		delete[] this->str; 
-		cout << "Destructor:\t" << this << endl; 
-	}
+
+	explicit String(size_t size = 80);
+	String(const char str[]);
+	String(const String& other);
+	String(String&& other);
+	~String();
 	//			Operators
-	String& operator = (const String& other)
-	{
-		if (this == &other)return *this; 
-		delete[] this->str; 
-		this->size = other.size; 
-		this->str = new char [size] {}; 
-		for (int i = 0; i < size; i++)
-			this->str[i] = other.str[i]; 
-		cout << "CopyAssigmtn:\t" << this << endl; 
-		return *this; 
-	}
 	
-	char operator [] (int index)const
-	{
-		return str[index]; 
-	}
-	char& operator [] (int index)//если возвр по ссылке, то можем менять
-	{
-		return str[index];
-	}
+	String& operator = (const String& other);
+	String& operator = (String&& other);
+	String& operator += (const String& other);
+	char operator [] (int index)const;
+	char& operator [] (int index);
 	//			Methods
 
-	void print()const
-	{
-		cout << "size:\t"<< size << endl;
-		cout << "str:\t" << str << endl;
-	}
+	void print()const;
 };
+
+size_t String::get_size()const
+{
+	return size;
+}
+
+const char* String::get_str()const
+{
+	return str;
+}
+char* String::get_str()
+{
+	return str;
+}
+
+/*constructors*/
+
+String::String(size_t size) :size(size), str(new char[size] {})//Default constructor
+{
+	//this->size = size; 
+	//this->str = new char[size] {}; //занулена и содержит 80байт памяти
+	cout << "DefConstructor:\t" << this << endl;
+}
+String::String(const char str[]) :size(strlen(str) + 1), str(new char[size] {})
+{
+	//this->size = strlen(str) + 1; //длина строки с терминатором
+	//this->str = new char[size] {}; 
+	for (int i = 0; i < size; i++)
+		this->str[i] = str[i];
+	cout << "constructor:\t" << endl;
+}
+String::String(const String& other) :size(other.size), str(new char[size] {})
+{
+	/*this->size = other.size;
+	this->str = new char [size] {}; */
+	for (int i = 0; i < size; i++)
+	{
+		this->str[i] = other.str[i];
+	}
+	cout << "CopyConstrucror: \t" << this << endl;
+}
+String::String(String&& other) :size(other.size), str(other.str)
+{
+	//Shallow copy:
+	/*this->size = other.size;
+	this->str = other.str; */
+	other.str = nullptr;
+	other.size = NULL;
+	cout << "MoveConstr:" << this << endl;
+}
+
+String::~String()//последний метод в секции конструкторов
+{
+	delete[] this->str;
+	cout << "Destructor:\t" << this << endl;
+}
+//			Operators
+String& String::operator = (const String& other)
+{
+	if (this == &other)return *this;
+	delete[] this->str;
+	this->size = other.size;
+	this->str = new char [size] {};
+	for (int i = 0; i < size; i++)
+		this->str[i] = other.str[i];
+	cout << "CopyAssigmtn:\t" << this << endl;
+	return *this;
+}
+String& String::operator = (String&& other)
+{
+	if (this == &other)return *this;//на всяк случай, не м.б. 2 разных объекта с одним адресом
+	delete[] this->str;
+	this->size = other.size;
+	this->str = other.str;
+	other.size = 0;
+	other.str = nullptr;
+	cout << "MoveAssignment:\t " << this << endl;
+	return *this;
+}
+String& String::operator += (const String& other)
+{
+	return *this = *this + other;
+}
+char String::operator [] (int index)const
+{
+	return str[index];
+}
+char& String::operator [] (int index)//если возвр по ссылке, то можем менять
+{
+	return str[index];
+}
+//			Methods
+
+void String::print()const
+{
+	cout << "size:\t" << size << endl;
+	cout << "str:\t" << str << endl;
+}
 
 ostream& operator << (ostream& os, const String&obj)
 {
